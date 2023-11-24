@@ -41,7 +41,7 @@ header{
 
 .lista {
     display: flex;
-    border: solid 3px;
+    border: solid 1px;
     
    
 
@@ -59,7 +59,7 @@ header{
     align-items: center;
     width: 600px;
     height: 50% vph;
-    border: solid;
+    border: solid 1px;
 
 }
 
@@ -68,7 +68,7 @@ header{
     flex-direction: column;
     align-items: center;
     width: 100%;
-    border: solid 2px;
+    
 
 }
 
@@ -76,7 +76,7 @@ header{
  display: flex;
  flex-direction: column;
  align-items: center;
- background-color: aqua;
+ background-color: #D8BF5C;
  width: 100%;
 
 }

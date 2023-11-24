@@ -223,6 +223,13 @@ submitBtn.addEventListener("click", () => {
     }
 
 traerRutines();
+
+Swal.fire({
+    title: '¡Bienvenido!',
+    text: 'Has sido inscripto',
+    icon: 'success',
+    confirmButtonText: 'Aceptar'
+  });
    
 });
 
