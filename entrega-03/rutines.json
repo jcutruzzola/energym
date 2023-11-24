@@ -1,0 +1,138 @@
+[
+
+{
+
+"nombre":"Musculación y fuerza", 
+
+    "ejercicios": {
+
+        "ejercicio 1" : {
+            "nombre": "Salto vertical cruzando las piernas",
+            "series" : "x2",
+            "tiempo" : "20 seg",
+            "peso" : "10kg",
+            "nota" : ""
+         },
+
+        "ejercicio 2" : {
+            "nombre" : "Plancha y apertura de piernas",
+            "series" : "x2",
+            "tiempo" : "20 seg",
+            "peso": "",
+            "nota" : "descanso 10 seg"
+            },
+        "ejercicio 3" : {
+            "nombre" : "Elevación de Rodillas o Skipping",
+            "series" : "x2",
+            "tiempo" : "20 seg",
+            "peso" : "",
+            "nota" :"descanso 10 seg / Hacerlo rápido"
+
+            },
+
+        "ejercicio 4" : {
+            "nombre" : "Jumping jack",
+            "series" : "x2",
+            "tiempo" :"20 seg",
+            "peso" : "",
+            "nota" : "descanso 10 seg" 
+        }
+    
+    }
+},
+
+
+
+{
+       
+"nombre":"Deporte y salud", 
+
+"ejercicios": {
+
+    "ejercicio 1" : {
+        "nombre": "Jumping jack",
+        "series" : "x4",
+        "tiempo" : "50 seg",
+        "descanso" : "10 seg",
+        "peso" : "Peso propio",
+        "nota" : "1 min de descanso por vuelta"
+        },
+
+    "ejercicio 2" : {
+        "nombre": "Media sentadilla",
+        "series" : "x4",
+        "tiempo" : "50 seg",
+        "descanso" : "10 seg",
+        "peso" : "Peso propio",
+        "nota" : "1 min de descanso por vuelta"
+
+        },
+    "ejercicio 3" : {
+        "nombre": "Burpee",
+        "series" : "x4",
+        "tiempo" : "50 seg",
+        "descanso" : "10 seg",
+        "peso" : "Peso propio",
+        "nota" : "1 min de descanso por vuelta"
+
+        },
+
+    "ejercicio 4" : {
+        "nombre" : "Plancha y flexión de brazos",
+        "series" : "x2",
+        "tiempo" :"20 seg",
+        "peso" : "",
+        "nota" : "descanso 10 seg" 
+    }
+    
+    }
+
+},
+
+
+{
+
+"nombre":"Adelgazar", 
+
+    "ejercicios": {
+
+        "ejercicio 1" : {
+            "nombre": "Jumping jack",
+            "series" : "x3",
+            "cantidad" : "10 rep",
+            "descanso" : "30 seg",
+            "peso" : "Peso propio",
+            "nota" : ""
+            },
+
+        "ejercicio 2" : {
+            "nombre": "Flexión de brazos y plancha lateral",
+            "series" : "x3",
+            "cantidad" : "6 rep",
+            "descanso" : "30 seg",
+            "peso" : "Peso propio",
+            "nota" : ""
+            },
+    
+        "ejercicio 3" : {
+            "nombre": "Flexión de caderas alternas hacia el codo contrario",
+            "series" : "x3",
+            "tiempo" : "30 seg",
+            "descanso" : "30 seg",
+            "peso" : "Peso propio",
+            "nota" : ""
+            },
+
+        "ejercicio 4" : {
+            "nombre": "Plancha y patada lateral",
+            "series" : "x3",
+            "cantidad" : "10 rep",
+            "descanso" : "30 seg",
+            "peso" : "Peso propio",
+            "nota" : "De cada pierna"
+            }
+
+        }
+}
+
+]

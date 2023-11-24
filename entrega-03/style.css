@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+ width: 100%;
+ height: auto;
+ text-align: center;
+ padding: 1rem;
+
+}
+
+header{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    
+
+
+}
+
+.counter {
+    border: solid black;
+    font-style: italic;
+    text-align: center;
+    width: 4rem;
+    height: auto;
+    margin: 4rem;
+    padding: 1rem;
+
+}
+
+.lista {
+    display: flex;
+    border: solid 3px;
+    
+   
+
+}
+
+.logo{
+    width: 8rem;
+
+
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    height: 50% vph;
+    border: solid;
+
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border: solid 2px;
+
+}
+
+#form div {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ background-color: aqua;
+ width: 100%;
+
+}
+
+#form div input {
+    width: 60%;
+}
+
