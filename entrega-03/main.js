@@ -10,11 +10,12 @@ class Usuario {
     this.fechaNacimiento = info.fechaNacimiento;
     this.pesoInicial = info.pesoInicial;
     this.correo = info.correo;
+    this.rutina = info.rutina;
     this.inscripto = false;
 
     }
 
-    inscribir(usuarios) {
+       inscribir(usuarios) {
         this.inscripto = true;
         this.id = usuarios.length + 1;
         usuarios.push(this);
@@ -31,81 +32,31 @@ const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
  Luego me gustaria que estos usuarios puedan ser ingresados por un form. --------> // PENDIENTE \\ <----------
 */
 
-new Usuario ({
+// Función para obtener las rutinas mediante fetch
+const obtenerRutinas = async () => {
+    try {
+        const response = await fetch("./rutines.json");
+        const data = await response.json();
 
-    nombre: "Norman",
-    apellido: "Parra",
-    edad: 21,
-    altura: "1.79",
-    fechaNacimiento: "6-Jan-94",
-    pesoInicial: 70,
-    correo: "normanparra@gmail.com",
+        // Aseguramos que data sea un array
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        console.error("Error al obtener las rutinas:", error);
+        return [];
+    }
+};
 
-}).inscribir(usuarios);
-
-new Usuario ({
-
-    nombre: "Maximiliano",
-    apellido: "Soto",
-    edad: 22,
-    altura: "1.87",
-    fechaNacimiento: "19-Oct-93",
-    pesoInicial: 108,
-    correo: "maxisoto@gmail.com",
-                    
- }).inscribir(usuarios);
-
-new Usuario ({
-    nombre: "César",
-    apellido: "Villareal",
-    edad: 25,
-    altura: "1.85",
-    fechaNacimiento: "26-Dec-90",
-    pesoInicial: 92,
-    correo: "cesarvillarreal@gmail.com",
-        
-}).inscribir(usuarios);
-
-new Usuario ({
-    nombre: "Irving",
-    apellido: "fierro",
-    edad: 24,
-    altura: "1.80",
-    fechaNacimiento: "30-Oct-91",
-    pesoInicial: 97,
-    correo: "irvingfierro@gmail.com",
-            
-}).inscribir(usuarios);
-
-new Usuario ({
-    nombre: "Juan",
-    apellido: "Flores",
-    edad: 25,
-    altura: "1.73",
-    fechaNacimiento: "18-Nov-90",
-    pesoInicial: 91,
-    correo: "juanflores@gmail.com",
-                
-}).inscribir(usuarios);
 
 
 // ENVIO DE LOS USUARIOS AL LOCALSTORAGE \\
-
-// localStorage.setItem("usuarios", JSON.stringify(usuarios))
-
 
 const usuariosLocalStorage = localStorage.getItem("usuarios");
 
 !usuariosLocalStorage && localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-// if (!usuariosLocalStorage) {
-//   localStorage.setItem("usuarios", JSON.stringify(usuarios));
-// }
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const prueba = document.getElementById("prueba");
+const boxUsuarios = document.getElementById("boxUsuarios");
 
 const traerRutines = async() => {
     const response = await fetch("./rutines.json");
@@ -130,7 +81,7 @@ const traerRutines = async() => {
         });
 
 
-        prueba.append(div);
+        boxUsuarios.append(div);
         div.appendChild(ejerciciosP);
     
     });
@@ -139,11 +90,6 @@ const traerRutines = async() => {
 
 // traerRutines();
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //// FORMULARIO \\\
 
@@ -194,7 +140,26 @@ submitBtn.addEventListener("click", () => {
     let grupoSangre = document.getElementById("grupoSangre").value;
     let rutinaNombre = document.getElementById("rutines").value;
 
-    
+    // Validaciones\\
+
+    if (!name || !surname || !age || !bornDate || !email || !height || !weigth || !grupoSangre || !rutines) {
+        alert("Por favor, complete todos los campos del formulario.");
+        return;
+    }
+
+    const fechaHoy = new Date();
+    const fechaIngresada = new Date(bornDate);
+    if (fechaIngresada > fechaHoy) {
+        alert("La fecha de nacimiento no puede estar en el futuro.");
+        return;
+    }
+
+    if (isNaN(parseFloat(weigth)) || isNaN(parseFloat(height))) {
+
+        alert("Por favor, ingrese números válidos en los campos de peso e altura.");
+        return;
+    }
+
     const traerRutines = async () => {
         const response = await fetch("./rutines.json");
         const data = await response.json();
@@ -202,6 +167,7 @@ submitBtn.addEventListener("click", () => {
         let rutinaSeleccionada = data.find(rutina => rutina.nombre === rutinaNombre);
 
         if (rutinaSeleccionada) {
+
             const newUser = {
                 nombre: name,
                 apellido: surname,
@@ -213,9 +179,10 @@ submitBtn.addEventListener("click", () => {
                 grupoSangre: grupoSangre,
                 rutina: rutinaSeleccionada,
             }
-        // inscribir(usuarios);
+
         usuarios.push(newUser);
         localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        location.reload();
         
         } else {
             console.log("Error");
@@ -232,52 +199,6 @@ Swal.fire({
   });
    
 });
-
-
-///////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-// ----> INGRESAR NUEVO USUARIO POR PROMPT <-----  \\
-
-/* const crearUsuario = () => {
-    let usuarioJson = localStorage.getItem("usuarios");
-    let usuarios = JSON.parse(usuarioJson);
-
-    let nombre = prompt("Ingrese el nombre del usuario");
-    let apellido = prompt("Ingrese el apellido del usuario");
-    let edad = Number(prompt("Ingrese la edad del usuario"));
-    let altura = Number(prompt("Ingrese la altura del usuario"));
-    let fechaNacimiento = prompt("Ingrese fecha de nacimiento formato DD/MM/AA");
-    let pesoInicial = Number(prompt("Ingrese peso"));
-    let correo = prompt("Ingrese correo electrónico");
-
-
-    let nuevoUsuario = new Usuario ({
-        nombre,
-        apellido,
-        edad,
-        altura,
-        fechaNacimiento,
-        pesoInicial,
-        correo,
-    }).inscribir(usuarios);
-
-
-    // usuarios.push(nuevoUsuario); // el método del constructor ya hace el push.
-
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-};
- */
-
-// -----> BOTON PARA CREAR USUARIOS - YA NO ES NECESARIO <----- \\   
-
-/* let botonCrearUsuario = document.createElement("button");
-botonCrearUsuario.addEventListener("click", (info) => crearUsuario(info));
-
-botonCrearUsuario.innerHTML = "Crear Usuario";
-document.getElementById("botonUsuario").append(botonCrearUsuario);
- */
-// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 // ----> LISTA DE NOMBRES AL HTML <----- \\
@@ -297,66 +218,82 @@ document.body.append;
 const listaNombres = document.querySelector("#list");
 listaNombres.innerHTML = ""; // Limpia la lista existente
 
-usuariosGuardados.forEach((usuario) => {
-    const listaUsuarios = document.createElement("li");
-    listaUsuarios.innerHTML = usuario.nombre;
-    listaUsuarios.className = "lista";
+usuariosGuardados.forEach((usuario, index) => {
+    const listaUsuarios = document.createElement("div");
+    listaUsuarios.innerHTML = ` 
+        <p>Nombre: ${usuario.nombre}</p>
+        <p>Apellido: ${usuario.apellido}</p>
+        <p>Edad: ${usuario.edad}</p>
+        <button type="button" class="btn btn-danger btn-sm btnEliminar" data-index="${index}">Eliminar</button>
+    `;
+    listaUsuarios.classList.add("d-flex", "flex-column", "mb-3", "fs-6", "lista");
     listaNombres.append(listaUsuarios);
 });
 
 
-// BÚSQUEDA DE USUARIOS \
+document.querySelectorAll(".btnEliminar").forEach( (btn) => {
+    btn.addEventListener("click", function() {
+        // Obtener el índice almacenado en el atributo data
+        const index = this.getAttribute("data-index");
+        
+        // Eliminar el usuario del array usuariosGuardados
+        usuariosGuardados.splice(index, 1);
+        
+        // Actualizar el local storage
+        localStorage.setItem('usuarios', JSON.stringify(usuariosGuardados));
+
+        // Recargar la página
+        location.reload();
+    });
+});
+
 
 function buscar() {
+    let usuarioJson = localStorage.getItem("usuarios");
+    let usuarios = JSON.parse(usuarioJson);
 
-    let nombre = prompt("Ingrese el nombre de usuario que desea conocer los datos, para salir ingrese SALIR");
+    let usuarioBuscado = document.getElementById("buscador").value;
 
-    while(nombre.toUpperCase() !== null) {
-
-        if (nombre.toUpperCase() === "SALIR") {
-            // Si el usuario ingresa "SALIR", salir del bucle
-            break;
-        }
-
-
-        let usuario;
-
-            for (const item of usuarios) {
-                if(item.nombre.toUpperCase() === nombre.toUpperCase()){
-                    usuario = item;
-                }
-            }
-
-            if (usuario) {
-
-                let div2 = document.getElementById("prueba2");
-
-                div2.innerHTML = `
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">${usuario.nombre}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Edad: ${usuario.edad}</h6>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Estatura: ${usuario.altura}</h6>
-                        <p class="card-text">Peso: ${usuario.pesoInicial}</p>
-                    </div>
-                </div>
-              `;
-                document.body.append(div2);
-
-            } else {
-                alert("El usuario no existe");
-            }
-
-        nombre = prompt("Ingrese el nombre de usuario que desea conocer los datos, para salir ingrese SALIR");
+    if (usuarioBuscado.trim() === "") {
+        alert("Ingrese un nombre de usuario válido");
+        return;
     }
-};
+
+    let usuarioEncontrado = usuarios.find((user) => user.nombre.toUpperCase() === usuarioBuscado.toUpperCase());
+
+    if (usuarioEncontrado) {
+        let div2 = document.getElementById("boxListaBusqueda");
+
+        div2.innerHTML = `
+            <div class="card" id="cardUsuario" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${usuarioEncontrado.nombre} ${usuarioEncontrado.apellido}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Edad: ${usuarioEncontrado.edad}</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Estatura: ${usuarioEncontrado.altura}</h6>
+                    <p class="card-text">Peso: ${usuarioEncontrado.pesoInicial}</p>
+                    <p class="card-text">Rutina: ${usuarioEncontrado.rutina.nombre}</p>
+                    <button type="button" id="btnReinicio" class="btn btn-secondary btnReinicio">Reiniciar</button>
+                </div>
+            </div>
+        `;
+        document.body.append(div2);
+    } else {
+        alert("El usuario no existe");
+    }
+}
 
 const boton = document.createElement("button");
 boton.addEventListener("click", buscar);
-
 boton.innerHTML = "Buscar Usuario";
 document.querySelector("#boton").append(boton);
 
 
+const botonReinicio = document.querySelector("#btnReinicio");
 
-
+document.body.addEventListener("click", (event) => {
+    if (event.target.classList.contains("btnReinicio")) {
+        const div2 = document.getElementById("boxListaBusqueda");
+        div2.innerHTML = "";
+        location.reload();
+    }
+});
